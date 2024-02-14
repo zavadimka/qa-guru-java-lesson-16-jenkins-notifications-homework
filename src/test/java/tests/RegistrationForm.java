@@ -1,5 +1,6 @@
 package tests;
 
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.*;
@@ -11,6 +12,11 @@ public class RegistrationForm {
     @Step("Open registration form page")
     void openPage(String url) {
         open(url);
+
+        SelenideElement bannerRoot = $(".fc-consent-root");
+        if (bannerRoot.isDisplayed()) {
+            bannerRoot.$(byText("Consent")).click();
+        }
     }
 
     @Step("Check the registration form header")
