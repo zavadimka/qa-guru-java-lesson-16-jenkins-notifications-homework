@@ -3,26 +3,35 @@ package com.zavadimka.pages;
 import static io.qameta.allure.Allure.step;
 
 public class LambdaSteps {
-    RegistrationForm registrationForm = new RegistrationForm();
-    InputData inputData = new InputData();
+    private final ProjectDataConfig projectDataConfig;
 
-    public void fillTheForm(){
+    public LambdaSteps(ProjectDataConfig projectDataConfig) {
+        this.projectDataConfig = projectDataConfig;
+    }
+    RegistrationForm registrationForm = new RegistrationForm();
+
+
+    public void fillTheForm() {
         step("### Fill the form", () -> {
-            registrationForm.openPage(inputData.pageAddress);
+            registrationForm.openPage(projectDataConfig.pageAddress);
             registrationForm.checkHeader();
             registrationForm.removeBanners();
-            registrationForm.setFirstName(inputData.firstName);
-            registrationForm.setLastName(inputData.lastName);
-            registrationForm.setEmail(inputData.email);
-            registrationForm.setGender(inputData.gender);
-            registrationForm.setMobileNumber(inputData.mobileNumber);
-            registrationForm.setDateOfBirth(inputData.yearOfBirthday, inputData.monthOfBirthday, inputData.dayOfBirthday);
-            registrationForm.setSubject(inputData.subject);
-            registrationForm.setHobby(inputData.hobby);
-            registrationForm.uploadImage(inputData.imagePath);
-            registrationForm.setCurrentAddress(inputData.currentAddress);
-            registrationForm.setState(inputData.state);
-            registrationForm.setCity(inputData.city);
+            registrationForm.setFirstName(projectDataConfig.firstName);
+            registrationForm.setLastName(projectDataConfig.lastName);
+            registrationForm.setEmail(projectDataConfig.email);
+            registrationForm.setGender(projectDataConfig.gender);
+            registrationForm.setMobileNumber(projectDataConfig.mobileNumber);
+            registrationForm.setDateOfBirth(
+                    projectDataConfig.yearOfBirthday,
+                    projectDataConfig.monthOfBirthday,
+                    projectDataConfig.dayOfBirthday
+            );
+            registrationForm.setSubject(projectDataConfig.subject);
+            registrationForm.setHobby(projectDataConfig.hobby);
+            registrationForm.uploadImage(projectDataConfig.imagePath);
+            registrationForm.setCurrentAddress(projectDataConfig.currentAddress);
+            registrationForm.setState(projectDataConfig.state);
+            registrationForm.setCity(projectDataConfig.city);
             registrationForm.scrollScreenDown();
             registrationForm.submitRegistration();
         });
@@ -31,16 +40,20 @@ public class LambdaSteps {
     public void verifyRegistrationFormSummaryTable() {
         step("### Verify the registration form summary table", () -> {
             registrationForm.checkSummaryTableOpening();
-            registrationForm.nameVerification(inputData.firstName, inputData.lastName);
-            registrationForm.summaryTableVerification("Student Email", inputData.email);
-            registrationForm.summaryTableVerification("Gender", inputData.gender);
-            registrationForm.summaryTableVerification("Mobile", inputData.mobileNumber);
-            registrationForm.dateOfBirthVerification(inputData.yearOfBirthday, inputData.monthOfBirthday, inputData.dayOfBirthday);
-            registrationForm.summaryTableVerification("Subjects", inputData.subject);
-            registrationForm.summaryTableVerification("Hobbies", inputData.hobby);
-            registrationForm.summaryTableVerification("Picture", inputData.imageName);
-            registrationForm.summaryTableVerification("Address", inputData.currentAddress);
-            registrationForm.stateAndCityVerification(inputData.state, inputData.city);
+            registrationForm.nameVerification(projectDataConfig.firstName, projectDataConfig.lastName);
+            registrationForm.summaryTableVerification("Student Email", projectDataConfig.email);
+            registrationForm.summaryTableVerification("Gender", projectDataConfig.gender);
+            registrationForm.summaryTableVerification("Mobile", projectDataConfig.mobileNumber);
+            registrationForm.dateOfBirthVerification(
+                    projectDataConfig.yearOfBirthday,
+                    projectDataConfig.monthOfBirthday,
+                    projectDataConfig.dayOfBirthday
+            );
+            registrationForm.summaryTableVerification("Subjects", projectDataConfig.subject);
+            registrationForm.summaryTableVerification("Hobbies", projectDataConfig.hobby);
+            registrationForm.summaryTableVerification("Picture", projectDataConfig.imageName);
+            registrationForm.summaryTableVerification("Address", projectDataConfig.currentAddress);
+            registrationForm.stateAndCityVerification(projectDataConfig.state, projectDataConfig.city);
             registrationForm.closeSummaryTable();
         });
     }
