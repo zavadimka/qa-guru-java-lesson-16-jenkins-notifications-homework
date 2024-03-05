@@ -2,7 +2,11 @@ package com.zavadimka.config;
 
 import org.aeonbits.owner.Config;
 
-@Config.Sources("classpath:config/${environment}.properties")
+@Config.LoadPolicy(Config.LoadType.MERGE)
+@Config.Sources({
+        "system:properties",
+        "classpath:config/${environment}.properties"
+})
 public interface ProjectConfig extends Config {
 
     @Key("web.url")
